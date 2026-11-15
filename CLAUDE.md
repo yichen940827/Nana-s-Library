@@ -64,6 +64,14 @@ Nana's Library/
 - 只有一個 CSS 檔（`style.css`）和一個 JS 檔（`script.js`），不使用框架，也不加入建置工具（例如 `package.json`），直接用 GitHub Pages 發布
 - `notes/` 會公開在 GitHub 上，只放 Nana 願意公開的內容
 
+### 版本號（避免瀏覽器用到舊的樣式）
+
+- GitHub Pages 會讓瀏覽器把 CSS、JS 暫存 10 分鐘；更新後若網頁是新的、樣式是舊的，畫面會跑掉
+- 所以所有頁面引用 `style.css`、`script.js` 時都加上版本號：`style.css?v=YYYY-MM-DD`、`script.js?v=YYYY-MM-DD`
+- **每次修改 `style.css` 或 `script.js`，就把所有頁面（`index.html`、`books/`、`reviews/`）的版本號改成當天日期**；同一天改第二次以後，加上 `-2`、`-3`（例：`2026-11-16-2`）
+- 新增頁面時，使用目前 `index.html` 上的版本號
+- 目前版本號：`2026-11-16`
+
 ---
 
 ## 3. 資料來源與讀取方式
@@ -254,7 +262,7 @@ Nana's Library/
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+TC:wght@400;500&family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css?v={{版本號}}">
 </head>
 <body>
   <div class="wrap narrow page-turn">
@@ -599,6 +607,7 @@ Nana's Library/
 - [ ] 首頁：書架排序正確、讀完的書已從書單移除、今年本數正確
 - [ ] 分類篩選按鈕包含所有分類
 - [ ] 所有連結與圖片路徑正確（書頁與回顧頁用 `../style.css`、`../images/`、`../index.html`）
+- [ ] 這次有改 `style.css` 或 `script.js`：所有頁面的版本號都已更新，且彼此一致（見第 2 節）
 - [ ] 手機寬度下排版正常、沒有橫向捲動
 - [ ] 動畫正常；開啟「減少動態效果」時動畫會關閉
 
