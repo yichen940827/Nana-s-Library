@@ -570,6 +570,9 @@ Nana's Library/
 
 ### 「幫我上傳到 GitHub」
 
+- GitHub 帳號：`yichen940827`（Nana 只使用這個帳號）
+- Repo：https://github.com/yichen940827/Nana-s-Library ，從 `main` 分支根目錄發布 GitHub Pages
+
 1. 列出這次有哪些檔案改了，用一兩句話說明
 2. 建立 commit，訊息用中文，格式：「<動作>：<內容>」
    例：「新增：《對男人一無所知的我》」、「更新：書單」、「修改：首頁配色」
