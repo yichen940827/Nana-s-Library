@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nana's Library</title>
+  <meta name="description" content="Nana 的個人閱讀紀錄：讀過的書、讀完的日期，和當時的心情。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+TC:wght@400;500&family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <h1 class="site-title">Nana's Library</h1>
+      <p class="site-sub">Ma petite bibliothèque</p>
+      <div class="stats">
+        <span class="pill" data-year-count>2026 年讀了 1 本</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" aria-labelledby="shelf-title">
+        <h2 class="section-title" id="shelf-title">On my shelf</h2>
+        <div class="filters" data-filters></div>
+        <div class="shelf" data-shelf>
+          <!-- 讀完的書：依讀完日期排序，最新的在前（CLAUDE.md 第 5 節） -->
+          <a class="shelf-item" href="books/i-who-have-never-known-men.html" data-category="小說" data-finished="2026-10">
+            <div class="book" style="--spine: #D6492D">
+              <div class="face inside"></div>
+              <div class="face pages"></div>
+              <div class="face back"></div>
+              <div class="face spine">對男人一無所知的我</div>
+              <div class="face cover" style="background-image: url('images/i-who-have-never-known-men.png')" role="img" aria-label="《對男人一無所知的我》書皮"></div>
+            </div>
+            <p class="shelf-caption"><strong>對男人一無所知的我</strong>2026 年 10 月讀完</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="list-title">
+        <h2 class="section-title" id="list-title">Up next</h2>
+        <div class="shelf reading-list">
+          <!-- 書單：依【書單】備忘錄的順序；已讀完的書不出現（CLAUDE.md 第 3.4 節） -->
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">各種悲傷</div><div class="face cover title-card">各種悲傷</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">生命中不可承受之輕</div><div class="face cover title-card">生命中不可承受之輕</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">像這樣的小事</div><div class="face cover title-card">像這樣的小事</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">裸食日常</div><div class="face cover title-card">裸食日常</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">帶外婆公主去倫敦</div><div class="face cover title-card">帶外婆公主去倫敦</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">再見了 過去的我</div><div class="face cover title-card">再見了 過去的我</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">當呼吸化為空氣</div><div class="face cover title-card">當呼吸化為空氣</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">crying in H mart</div><div class="face cover title-card">crying in H mart</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">從生命的車窗眺望</div><div class="face cover title-card">從生命的車窗眺望</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">渺小一生</div><div class="face cover title-card">渺小一生</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">我可能錯了</div><div class="face cover title-card">我可能錯了</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">隨他們去 let them</div><div class="face cover title-card">隨他們去 let them</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">創造力的修行</div><div class="face cover title-card">創造力的修行</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">意義的呼喚</div><div class="face cover title-card">意義的呼喚</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">蕉葉與樹的約定</div><div class="face cover title-card">蕉葉與樹的約定</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">輪迴86次的生命覺醒之旅</div><div class="face cover title-card">輪迴86次的生命覺醒之旅</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">Tuesdays with morrie</div><div class="face cover title-card">Tuesdays with morrie</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">婚禮之徒</div><div class="face cover title-card">婚禮之徒</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">在小山和小山之間</div><div class="face cover title-card">在小山和小山之間</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">流浪者之歌</div><div class="face cover title-card">流浪者之歌</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">廚房</div><div class="face cover title-card">廚房</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">午夜圖書館</div><div class="face cover title-card">午夜圖書館</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">感知幸福</div><div class="face cover title-card">感知幸福</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">賣瓜的人</div><div class="face cover title-card">賣瓜的人</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">美麗新世界</div><div class="face cover title-card">美麗新世界</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">後台紐約</div><div class="face cover title-card">後台紐約</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">那瓦爾寶典</div><div class="face cover title-card">那瓦爾寶典</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">北歐時間</div><div class="face cover title-card">北歐時間</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">養兔子</div><div class="face cover title-card">養兔子</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">神經可塑性</div><div class="face cover title-card">神經可塑性</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">位置</div><div class="face cover title-card">位置</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">山茶花文具店</div><div class="face cover title-card">山茶花文具店</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">早安，我心中的怪物</div><div class="face cover title-card">早安，我心中的怪物</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">世界上最透明的故事</div><div class="face cover title-card">世界上最透明的故事</div></div>
+        </div>
+        <div class="shelf-item">
+          <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">海邊的房間</div><div class="face cover title-card">海邊的房間</div></div>
+        </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">Nana's Library</footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

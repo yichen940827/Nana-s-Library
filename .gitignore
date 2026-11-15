@@ -1,0 +1,4 @@
+# 只給本機用的設定，不上傳
+.claude/
+.DS_Store
+.Rhistory

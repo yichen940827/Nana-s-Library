@@ -1,0 +1,374 @@
+/* Nana's Library — 全站唯一的樣式檔。顏色只在 :root 定義（CLAUDE.md 第 6 節） */
+
+:root {
+  --bg: #F8F1E7;
+  --surface: #F1E6D6;
+  --paper: #FBF7F0;
+  --grid: rgba(139, 94, 74, 0.13);
+  --text: #3B2420;
+  --muted: #8B5E4A;
+  --accent: #7B1E2B;
+  --shelf: #6B4A3A;
+  --pages: #F6F0E4;
+  --line: #E2D3BF;
+  --shadow: rgba(59, 36, 32, 0.18);
+
+  --font-en: "Playfair Display", "Noto Serif TC", serif;
+  --font-zh: "Noto Serif TC", "PingFang TC", serif;
+  --font-hand: "LXGW WenKai TC", "Noto Serif TC", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-zh);
+  font-weight: 400;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+a { color: var(--accent); }
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 64px; }
+.wrap.narrow { max-width: 720px; }
+
+/* ---------- 頁首 ---------- */
+
+.site-header { margin-bottom: 40px; }
+.site-title {
+  font-family: var(--font-en);
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 48px;
+  line-height: 1.1;
+  margin: 0;
+}
+.site-title a { color: inherit; text-decoration: none; }
+.site-sub {
+  font-family: var(--font-en);
+  font-style: italic;
+  color: var(--muted);
+  font-size: 19px;
+  margin: 6px 0 0;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 0;
+  font-size: 15px;
+}
+.pill {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+/* ---------- 區塊標題 ---------- */
+
+.section { margin-top: 56px; }
+.section-title {
+  font-family: var(--font-en);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 28px;
+  line-height: 1.3;
+  margin: 0 0 20px;
+}
+
+/* ---------- 分類篩選 ---------- */
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+.filter-btn {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  color: var(--accent);
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 16px;
+  cursor: pointer;
+}
+.filter-btn[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+
+/* ---------- 書架與立體書 ---------- */
+
+.shelf {
+  --row: 290px;               /* 一層書架的高度：上方空間 + 書高 + 木頭線 + 書名 */
+  --cap: 50px;                /* 木頭線下方放書名的高度 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0 44px;
+  padding: 0 28px;
+  perspective: 1100px;
+  /* 每一層畫一條木頭色粗線（純色線條，不是漸層），書名放在線的下方 */
+  background-image: linear-gradient(to top,
+    transparent 0, transparent var(--cap),
+    var(--shelf) var(--cap), var(--shelf) calc(var(--cap) + 10px),
+    transparent calc(var(--cap) + 10px));
+  background-size: 100% var(--row);
+}
+.shelf-item {
+  position: relative;
+  height: var(--row);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: calc(var(--cap) + 10px);   /* 書站在木頭線上 */
+  text-decoration: none;
+  color: var(--text);
+}
+.shelf-item[hidden] { display: none; }
+
+.book {
+  --w: 132px;
+  --h: 198px;
+  --t: 22px;                  /* 書的厚度（所有書統一） */
+  --spine: var(--accent);
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  transform-style: preserve-3d;
+  transform: rotateY(32deg);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.book .face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.book .cover {
+  transform: translateZ(calc(var(--t) / 2));
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+  background-color: var(--surface);
+  background-size: cover;
+  background-position: center;
+  border-radius: 1px 3px 3px 1px;
+  box-shadow: inset 3px 0 0 rgba(0, 0, 0, 0.08), 6px 8px 14px var(--shadow);
+}
+.book .back { transform: rotateY(180deg) translateZ(calc(var(--t) / 2)); background: var(--spine); }
+.book .spine {
+  width: var(--t);
+  left: calc(var(--t) / -2);
+  transform: rotateY(-90deg);
+  background: var(--spine);
+  color: var(--bg);
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.book .pages {
+  width: var(--t);
+  left: calc(var(--w) - var(--t) / 2);
+  transform: rotateY(90deg);
+  background: var(--pages);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.book .inside {
+  transform: translateZ(calc(var(--t) / 2 - 1px));
+  background: var(--pages);
+}
+
+/* 沒有照片時的書名卡片 */
+.book .cover.title-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 14px;
+  color: var(--accent);
+  font-size: 15px;
+  line-height: 1.5;
+  border: 0.5px solid var(--line);
+}
+
+/* 抽書（滑鼠移上去）與翻開封面（點擊） */
+@media (hover: hover) {
+  a.shelf-item:hover .book { transform: rotateY(22deg) translateY(-18px) rotateZ(-2deg); }
+}
+.shelf-item.is-opening .book { transform: rotateY(12deg) translateY(-18px); }
+.shelf-item.is-opening .cover { transform: translateZ(calc(var(--t) / 2)) rotateY(-150deg); }
+
+/* 書名：電腦上滑鼠移上去才出現；手機直接顯示 */
+.shelf-caption {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 150px;
+  height: var(--cap);
+  margin: 0;
+  padding-top: 8px;
+  transform: translateX(-50%);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.shelf-caption strong { display: block; color: var(--text); font-weight: 500; }
+@media (hover: hover) {
+  a.shelf-item:hover .shelf-caption,
+  a.shelf-item:focus-visible .shelf-caption { opacity: 1; }
+}
+@media (hover: none) {
+  .shelf-caption { opacity: 1; }
+}
+
+.empty-note { color: var(--muted); font-size: 15px; }
+
+/* 書單：較小、沒有動畫、不能點 */
+.shelf.reading-list { --row: 196px; --cap: 24px; gap: 0 28px; }
+.reading-list .book { --w: 84px; --h: 126px; --t: 16px; }
+.reading-list .book .cover.title-card { font-size: 12px; padding: 10px 8px; }
+.reading-list .shelf-caption { opacity: 1; width: 104px; font-size: 12px; padding-top: 4px; }
+
+/* ---------- 書頁 ---------- */
+
+.back-link {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 32px;
+}
+.back-link:hover { color: var(--accent); }
+
+.book-header {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.book-cover {
+  width: 200px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 2px 4px 4px 2px;
+  box-shadow: 8px 10px 18px var(--shadow);
+  background: var(--surface);
+}
+.book-cover.title-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 16px;
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1.5;
+}
+.book-title {
+  font-family: var(--font-zh);
+  font-weight: 500;
+  color: var(--text);
+  font-size: 30px;
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+.book-meta { margin: 0; font-size: 15px; color: var(--muted); }
+.book-meta div { margin: 2px 0; }
+.book-meta dt { display: inline; }
+.book-meta dd { display: inline; margin: 0; color: var(--text); }
+.mood-tag {
+  display: inline-block;
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 2px 12px;
+}
+
+/* 方格紙：心得、重點筆記、年度回顧感想（格子 28px = 行高） */
+.grid-paper {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  border: 0.5px solid var(--line);
+  border-radius: 6px;
+  padding: 28px;
+}
+.grid-paper .section-title { line-height: 42px; margin: 0 0 14px; }
+.nana-text {
+  font-size: 16px;
+  line-height: 28px;
+  white-space: pre-wrap;      /* 保留備忘錄的換行與空格（CLAUDE.md 7.1） */
+  margin: 0;
+}
+
+/* 書籤卡片：喜歡的句子 */
+.quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.quote {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  padding: 16px 20px;
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 1.8;
+}
+.quote .page { display: block; margin-top: 4px; font-family: var(--font-zh); font-size: 13px; color: var(--muted); }
+
+/* 書頁載入：像翻到下一頁 */
+.page-turn {
+  transform-origin: left center;
+  animation: page-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes page-in {
+  from { opacity: 0; transform: perspective(1400px) rotateY(-12deg) translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- 頁尾 ---------- */
+
+.site-footer {
+  margin-top: 72px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-en);
+  font-style: italic;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ---------- 手機 ---------- */
+
+@media (max-width: 639px) {
+  .wrap { padding: 32px 16px 48px; }
+  .site-title { font-size: 38px; }
+  .shelf { --row: 262px; gap: 0 28px; padding: 0 12px; justify-content: center; }
+  .book { --w: 112px; --h: 168px; --t: 18px; }
+  .shelf-caption { width: 130px; }
+  .shelf.reading-list { --row: 184px; gap: 0 20px; }
+  .reading-list .book { --w: 76px; --h: 114px; --t: 14px; }
+  .book-header { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .book-cover { width: 160px; }
+  .book-title { font-size: 26px; }
+  .grid-paper { padding: 28px 20px; }
+}
+
+/* ---------- 減少動態效果 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  a.shelf-item:hover .book { transform: rotateY(32deg) !important; }
+}
