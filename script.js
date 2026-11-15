@@ -1,5 +1,5 @@
 // Nana's Library — 全站唯一的 JS（CLAUDE.md 第 2、5、6 節）
-// 1. 今年讀了幾本  2. 分類篩選按鈕  3. 點書時翻開封面再進入書頁
+// 1. 今年讀了幾本  2. 分類篩選按鈕  3. 點書時翻開封面再進入書頁  4. 書單抽屜
 
 (function () {
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -52,6 +52,29 @@
       setTimeout(function () { window.location.href = link.href; }, 650);
     });
   });
+
+  // 4. 書單抽屜：點「Up next」從右側滑出；按 ✕、點旁邊空白或按 Esc 收回
+  var drawer = document.getElementById("up-next");
+  var openBtn = document.querySelector("[data-drawer-open]");
+  if (drawer && openBtn) {
+    var countSpan = document.querySelector("[data-up-next-count]");
+    if (countSpan) countSpan.textContent = drawer.querySelectorAll(".up-next-item").length;
+
+    var setOpen = function (open) {
+      document.body.classList.toggle("drawer-open", open);
+      drawer.setAttribute("aria-hidden", open ? "false" : "true");
+      openBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) drawer.querySelector(".drawer-close").focus();
+      else openBtn.focus();
+    };
+    openBtn.addEventListener("click", function () { setOpen(true); });
+    document.querySelectorAll("[data-drawer-close]").forEach(function (el) {
+      el.addEventListener("click", function () { setOpen(false); });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && document.body.classList.contains("drawer-open")) setOpen(false);
+    });
+  }
 
   // 從書頁按「上一頁」回來時，把翻開的書闔上
   window.addEventListener("pageshow", function () {

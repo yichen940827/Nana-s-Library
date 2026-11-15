@@ -235,11 +235,89 @@ a { color: var(--accent); }
 
 .empty-note { color: var(--muted); font-size: 15px; }
 
-/* 書單：較小、沒有動畫、不能點 */
-.shelf.reading-list { --row: 196px; --cap: 24px; gap: 0 28px; }
-.reading-list .book { --w: 84px; --h: 126px; --t: 16px; }
-.reading-list .book .cover.title-card { font-size: 12px; padding: 10px 8px; }
-.reading-list .shelf-caption { opacity: 1; width: 104px; font-size: 12px; padding-top: 4px; }
+/* ---------- 書單抽屜（Up next） ---------- */
+
+.site-header { position: relative; }
+.drawer-toggle {
+  font-family: var(--font-en);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--accent);
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 18px;
+  cursor: pointer;
+}
+.drawer-toggle:hover { background: var(--accent); color: var(--bg); }
+@media (min-width: 640px) {
+  .drawer-toggle { position: absolute; top: 8px; right: 0; }
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(59, 36, 32, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  z-index: 10;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 86vw);
+  background: var(--bg);
+  border-left: 1px solid var(--line);
+  box-shadow: -8px 0 24px var(--shadow);
+  padding: 28px 24px 40px;
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.35s;
+  z-index: 11;
+}
+body.drawer-open { overflow: hidden; }
+body.drawer-open .drawer-backdrop { opacity: 1; visibility: visible; transition: opacity 0.3s; }
+body.drawer-open .drawer { transform: none; visibility: visible; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+.drawer-head { display: flex; align-items: center; justify-content: space-between; }
+.drawer-head .section-title { margin: 0; }
+.drawer-close {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+.drawer-close:hover { color: var(--accent); }
+.drawer-note { margin: 4px 0 20px; font-size: 13px; color: var(--muted); }
+
+.up-next-list { list-style: none; margin: 0; padding: 0; }
+.up-next-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.mini-cover {
+  flex: none;
+  width: 30px;
+  height: 45px;               /* 2:3 */
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 1px 2px 2px 1px;
+  box-shadow: 2px 3px 6px var(--shadow);
+  object-fit: cover;
+}
+img.mini-cover { border-left: 0; }
 
 /* ---------- 書頁 ---------- */
 
@@ -358,8 +436,6 @@ a { color: var(--accent); }
   .shelf { --row: 262px; gap: 0 28px; padding: 0 12px; justify-content: center; }
   .book { --w: 112px; --h: 168px; --t: 18px; }
   .shelf-caption { width: 130px; }
-  .shelf.reading-list { --row: 184px; gap: 0 20px; }
-  .reading-list .book { --w: 76px; --h: 114px; --t: 14px; }
   .book-header { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .book-cover { width: 160px; }
   .book-title { font-size: 26px; }

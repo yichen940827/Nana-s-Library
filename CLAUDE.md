@@ -29,7 +29,7 @@ Nana's Library/
 ├── README.md          # 給人看的專案介紹與網站連結
 ├── index.html         # 首頁：今年讀了幾本、分類篩選、書架、書單
 ├── style.css          # 全站唯一的樣式檔
-├── script.js          # 全站唯一的 JS：分類篩選、今年本數、翻書動畫
+├── script.js          # 全站唯一的 JS：分類篩選、今年本數、翻書動畫、書單抽屜
 ├── books/             # 每本「讀完」的書一頁
 │   └── <代稱>.html
 ├── reviews/           # 年度閱讀回顧，每年一頁
@@ -60,7 +60,7 @@ Nana's Library/
 
 ### 其他規則
 
-- 書單的書（還沒讀完）不建 `books/` 頁面，只顯示在 `index.html` 的書單區塊；讀完才建立 `books/`、`notes/` 檔案
+- 書單的書（還沒讀完）不建 `books/` 頁面，只顯示在 `index.html` 的書單抽屜；讀完才建立 `books/`、`notes/` 檔案
 - 只有一個 CSS 檔（`style.css`）和一個 JS 檔（`script.js`），不使用框架，也不加入建置工具（例如 `package.json`），直接用 GitHub Pages 發布
 - `notes/` 會公開在 GitHub 上，只放 Nana 願意公開的內容
 
@@ -319,11 +319,11 @@ Nana's Library/
 
 | # | 區塊 | 內容 |
 |---|---|---|
-| 1 | 頁首 | 網站名稱「Nana's Library」、副標「Ma petite bibliothèque」 |
+| 1 | 頁首 | 網站名稱「Nana's Library」、副標「Ma petite bibliothèque」；右上角「Up next · N」按鈕，點了打開書單抽屜 |
 | 2 | 今年讀了幾本 | 例：「2026 年讀了 2 本」；有年度回顧時，旁邊加「YYYY 閱讀回顧」連結 |
 | 3 | 分類篩選 | 按鈕：全部、小說、心理學、散文……（放在書架標題下方） |
 | 4 | 書架 | 標題「On my shelf」；讀完的書，依讀完日期排序，最新的在前 |
-| 5 | 書單 | 標題「Up next」；還沒讀完的書，依【書單】備忘錄的順序 |
+| — | 書單抽屜 | 標題「Up next」；不在首頁頁面上，平常收起來，點頁首按鈕才從右側滑出 |
 
 ### 今年讀了幾本
 
@@ -346,11 +346,13 @@ Nana's Library/
 - 同一個月讀完的書，依備忘錄順序排列；先後不確定時問 Nana
 - 動畫見第 6 節
 
-### 書單
+### 書單抽屜（Up next）
 
-- 只顯示書皮，書皮比書架上的小，視覺上比較低調
-- 不能點擊（沒有書頁），沒有動畫；書名顯示方式和書架相同
-- 沒有書皮照片時，用書名卡片代替
+- 頁首按鈕「Up next · N」：N 是書單本數，由 `script.js` 依清單自動計算；電腦放在頁首右上角，手機放在「今年讀了幾本」旁邊
+- 點按鈕後，抽屜從右側滑出（寬度最多 380px，手機為畫面的 86%），背後蓋一層半透明遮罩
+- 關閉方式：按 ✕、點遮罩，或按 Esc
+- 內容：清單式，一行一本，左邊小書皮（有照片用照片；沒有照片用 `--surface` 底、左側酒紅線的小卡），右邊書名
+- 書單的書不能點擊（沒有書頁）
 - 已經讀完的書不出現在書單（見第 3.2 節）
 
 ### 書架上一本書的 HTML（放進 `<div class="shelf" data-shelf>` 裡）
@@ -375,23 +377,18 @@ Nana's Library/
 - 依讀完日期排序，最新的放最前面
 - 「今年讀了幾本」的 `<span data-year-count>` 裡的文字也要更新成目前的數字（JS 沒執行時顯示用）
 
-### 書單上一本書的 HTML（放進 `<div class="shelf reading-list">` 裡）
+### 書單上一本書的 HTML（放進抽屜的 `<ol class="up-next-list">` 裡）
 
 ```html
 <!-- 沒有照片 -->
-<div class="shelf-item">
-  <div class="book"><div class="face pages"></div><div class="face back"></div><div class="face spine">{{書名}}</div><div class="face cover title-card">{{書名}}</div></div>
-</div>
+<li class="up-next-item"><span class="mini-cover" aria-hidden="true"></span><span class="up-next-title">{{書名}}</span></li>
 
 <!-- 有照片 -->
-<div class="shelf-item">
-  <div class="book" style="--spine: {{書背顏色}}"><div class="face pages"></div><div class="face back"></div><div class="face spine">{{書名}}</div><div class="face cover" style="background-image: url('images/{{代稱}}.png')" role="img" aria-label="《{{書名}}》書皮"></div></div>
-  <p class="shelf-caption">{{書名}}</p>
-</div>
+<li class="up-next-item"><img class="mini-cover" src="images/{{代稱}}.png" alt=""><span class="up-next-title">{{書名}}</span></li>
 ```
 
-- `{{書名}}` 照【書單】備忘錄的原樣
-- 書單的書不是連結（`div`，不是 `a`），沒有 `inside` 面，也沒有動畫
+- `{{書名}}` 照【書單】備忘錄的原樣，依備忘錄順序排列
+- 頁首按鈕裡的 `<span data-up-next-count>` 也要更新成目前的本數（JS 沒執行時顯示用）
 
 ### 頁尾
 
@@ -468,7 +465,7 @@ Nana's Library/
 - 書背上直排寫書名，用 `--bg` 顏色的小字
 - 書頁厚度：所有書統一，不依實際頁數改變
 - 沒有照片的書：正面是 `--surface` 底色的書名卡片，同樣是立體的
-- 書單的書：也是立體書，但尺寸較小、沒有動畫
+- 書單的書不放在書架上，而是在書單抽屜裡以清單顯示（見第 5 節）
 
 ### 動畫
 
@@ -476,8 +473,8 @@ Nana's Library/
   - 滑鼠移上去：書微微上移、稍微傾斜，像被抽出來（抽書）
   - 點擊：封面像書一樣翻開（約 0.6 秒），接著進入該書的書頁
   - 書頁載入時：內容像翻到下一頁一樣淡入
-- 書單的書：沒有動畫
-- 讀者在系統設定開啟「減少動態效果」（`prefers-reduced-motion`）時，關閉所有動畫，點擊直接進入書頁
+- 書單抽屜：從右側滑出、收回（約 0.35 秒）；書單裡的書沒有動畫
+- 讀者在系統設定開啟「減少動態效果」（`prefers-reduced-motion`）時，關閉所有動畫，點擊直接進入書頁、抽屜直接出現
 - 除此之外不加其他動畫
 
 ### 不要做的事
